@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <h3>Post Message</h3>
+    {% if message %}
+    <div class="container mt-5 mb-5 border border-success p-3 bg-dark text-white">
+        {% for msg in message %}
+        <div class="container">
+            <div {% if request.user.id == msg.usr %} style="text-align:right;" {% endif %}>
+                <span class="badge bg-primary rounded-pill">{{msg.usr}}</span>
+                <span class="badge bg-danger rounded-pill">{{msg.postedOn}}</span><br>
+                <span>{{msg.message}}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/post-message/{{ID}}/">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-11">
+                <input type="text" class="form-control" name="msg">
+            </div>
+            <button type="submit" class="col-sm-1 col-form-label btn btn-success"><i
+                    class="fas fa-location-arrow"></i></button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

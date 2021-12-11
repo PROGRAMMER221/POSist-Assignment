@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4 mb-3">
+    <div class="row">
+        <div class="col-10">
+            <h2>Joined Channels</h2>
+        </div>
+        <div class="col-2">
+            <a href="/add-channel/">
+                <span class="badge p-2" style="background-color: #0f4c5c;font-size:12pt;">Create Your Own Channel</span>
+            </a>
+        </div>
+    </div>
+    <ol class="mt-3 list-group list-group-numbered">
+        {% for chn in channels.values %}
+        <a href="/message-panel/{{chn.id}}/" style="text-decoration: none;">
+            <li class="list-group-item d-flex justify-content-between align-items-start mb-2">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{chn.name}}</div>
+                    {{chn.description}}
+                </div>
+                <span class="badge bg-primary rounded-pill">Tags</span>
+            </li>
+        </a>
+    </ol>
+    {% endfor %}
+</div>
+{% endblock %}
