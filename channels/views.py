@@ -1,13 +1,13 @@
-from django.db.models.aggregates import Max
 from django.shortcuts import redirect, render
 from .forms import ChannelForm, TagForm
 from django.contrib import messages
 from .models import Tags, Channel, Message
-from django.db.models import Sum, Count, Max
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+
 def HomeView(request):
     return render(request, 'base.html')
 
+@login_required
 def AddTagName(request):
     if request.method == 'POST':
         form = TagForm(request.POST)
@@ -22,6 +22,7 @@ def AddTagName(request):
         form = TagForm()
     return render(request, 'tag.html', context={'form':form})
 
+@login_required
 def AddChannel(request):
     if request.method == 'POST':
         form = ChannelForm(request.POST)
@@ -36,6 +37,7 @@ def AddChannel(request):
         form = ChannelForm()
     return render(request, 'channel.html', context={'form':form})
 
+@login_required
 def JoinChannel(request, id):
     chn = Channel.objects.get(id=id)
     usr = request.user
@@ -44,12 +46,14 @@ def JoinChannel(request, id):
     messages.success(request, 'You are now part of this Channel.')
     return redirect('/')
 
+@login_required
 def JoinedChannels(request):
     context = {
         'channels' : request.user.channelJoined
     }
     return render(request, 'joinedChannels.html', context)
 
+@login_required
 def MessagePanel(request, id):
     context = {
         'ID' : id,
@@ -57,6 +61,7 @@ def MessagePanel(request, id):
     }
     return render(request, 'messagePannel.html', context)
 
+@login_required
 def PostMessage(request, id):
     msg = Message()
     msg.message = request.POST['msg']
@@ -69,4 +74,4 @@ def AllChannels(request):
     context = {
         'channels' : Channel.objects.all()
     }
-    return render(request, 'AllChannel.html', context)
+    return render(request, 'allChannel.html', context)
