@@ -8,7 +8,6 @@ from django.db import connection
 from .models import User
 # Create your views here.
 
-@login_required
 def signup(request):
     if request.method == 'POST':
         new_form = SignupForm(request.POST)

@@ -1,8 +1,10 @@
+from django.db import connection
 from django.shortcuts import redirect, render
-from .forms import ChannelForm, TagForm
+from .forms import ChannelForm, TagForm, InviteForm
 from django.contrib import messages
 from .models import Tags, Channel, Message
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 def HomeView(request):
     return render(request, 'base.html')
@@ -75,3 +77,26 @@ def AllChannels(request):
         'channels' : Channel.objects.all()
     }
     return render(request, 'allChannel.html', context)
+
+@login_required
+def InvitePeople(request):
+    if request.method == 'POST':
+        form = InviteForm(request.POST)
+        if form.is_valid():
+            messages.success(request, 'Your Invitation Has Been Send :) ')
+            email = form.cleaned_data.get('email')
+            send_mail(
+                'Let\'s Talk Invitation',
+                'Your Friend Has Invited You to join Let\'s Talk. It\'s very easy click on the link below and get your self registed and enjoy :) \n http://posistassignment.pythonanywhere.com/',
+                'aman_22@outlook.com',
+                [email],
+                fail_silently=False,
+            )
+            return redirect('/')
+        else:
+            messages.error(request, 'Invalid Data Format')
+            return redirect('/')
+    else:
+        form = InviteForm()
+    
+    return render(request, 'send-invite.html', context = {'form':form})

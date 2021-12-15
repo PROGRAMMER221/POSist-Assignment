@@ -12,3 +12,8 @@ class ChannelForm(forms.ModelForm):
         model = Channel
         fields = ['name','description','tags']
 
+class InviteForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'required' : True,
+        'class' : 'form-control'
+    }))

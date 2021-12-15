@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^joined-channel/$', views.JoinedChannels),
     url(r'^all-channel/$', views.AllChannels),
     url(r'^message-panel/(?P<id>\d+)/$', views.MessagePanel),
-    url(r'^post-message/(?P<id>\d+)/$', views.PostMessage)
+    url(r'^post-message/(?P<id>\d+)/$', views.PostMessage),
+    url(r'^send-invite/$', views.InvitePeople),
 ]

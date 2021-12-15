@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container mt-5 mb-5">
+    <h3 class="text-danger">Invite Your Friend</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mt-5 row">
+            <label class="fw-bold col-sm-1 col-form-label">Email</label>
+            <div class="col-sm-11">
+              {{form.email}}
+            </div>
+          </div>
+          <div class="mt-2 row">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-11">
+                <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+            </div>
+          </div>
+        
+    </form>
+</div>
+
+{% endblock %}
