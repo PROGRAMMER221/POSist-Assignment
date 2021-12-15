@@ -9,6 +9,7 @@ REGION = (
     ('SE','Southern Europe'),
     ('WA','West Africa'),
     ('ME','Middle East'),
+    ('SA','South Africa'),
 )
 
 class SignupForm(UserCreationForm):

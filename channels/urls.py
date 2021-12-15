@@ -10,4 +10,8 @@ urlpatterns = [
     url(r'^message-panel/(?P<id>\d+)/$', views.MessagePanel),
     url(r'^post-message/(?P<id>\d+)/$', views.PostMessage),
     url(r'^send-invite/$', views.InvitePeople),
+    url(r'^trending-channel/$', views.TreandingChannel),
+    url(r'^trending-tags/$', views.TrendingTags),
+    url(r'^trending-region/$', views.TrendingRegion),
+    url(r'^trending-users/$', views.TrendingUser),
 ]

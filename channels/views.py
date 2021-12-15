@@ -5,6 +5,9 @@ from django.contrib import messages
 from .models import Tags, Channel, Message
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from user.models import User
+from django.db.models import Count
+from user.forms import REGION
 
 def HomeView(request):
     return render(request, 'base.html')
@@ -100,3 +103,35 @@ def InvitePeople(request):
         form = InviteForm()
     
     return render(request, 'send-invite.html', context = {'form':form})
+
+@login_required
+def TreandingChannel(request):
+    context = {
+        'top' : Message.objects.values('channel_id').annotate(msg_count=Count('id')).order_by('-msg_count')[:5],
+        'channels' : Channel.objects.all()
+    }
+    return render(request, 'trend-channel.html', context)
+
+@login_required
+def TrendingTags(request):
+    context = {
+        'top' : Channel.objects.values('tags').annotate(channel_count=Count('id')).order_by('-channel_count')[:5],
+        'tags' : Tags.objects.all()
+    }
+    return render(request, 'trending-tags.html', context)
+
+@login_required
+def TrendingRegion(request):
+    context = {
+        'top' : User.objects.values('region').annotate(user_count=Count('id')).order_by('-user_count')[:5],
+        'region' : REGION
+    }
+    return render(request, 'trend-region.html', context)
+
+@login_required
+def TrendingUser(request):
+    context = {
+        'top' : Message.objects.values('usr').annotate(msg_count=Count('id')).order_by('-msg_count')[:5],
+        'users' : User.objects.all()
+    }
+    return render(request, 'trend-user.html', context)

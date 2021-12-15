@@ -11,9 +11,7 @@
   <script src="{% static 'font-aws/all.js' %}"></script>
   <title>Let's Talk</title>
 
-  <style>
-    
-  </style>
+
 </head>
 
 <body style="background-color: aliceblue;">
@@ -43,18 +41,18 @@
               <li><a class="dropdown-item" href="/all-channel/">All Channels</a></li>
             </ul>
           </li>
-          <!-- <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               Trending
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Channels</a></li>
-              <li><a class="dropdown-item" href="#">Tags</a></li>
-              <li><a class="dropdown-item" href="#">Regions</a></li>
-              <li><a class="dropdown-item" href="#">users</a></li>
+              <li><a class="dropdown-item" href="/trending-channel/">Channels</a></li>
+              <li><a class="dropdown-item" href="/trending-tags/">Tags</a></li>
+              <li><a class="dropdown-item" href="/trending-region/">Regions</a></li>
+              <li><a class="dropdown-item" href="/trending-users/">users</a></li>
             </ul>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/send-invite/">Invite Others</a>
           </li>
@@ -73,7 +71,7 @@
         </ul>
         {% if user.is_authenticated %}
         <form class="d-flex">
-          <h3>Welcome {{user.username}}</h3>
+          <h3 class="fw-bold">Welcome {{user.username}}</h3>
         </form>
         {% endif %}
       </div>
